@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var cfenv = require('cfenv');
 
 var app = express();
 app.use(bodyParser.json({ 'limit': '10mb' }));
@@ -16,12 +17,13 @@ app.get('/:search_term', function (req, resp) {
   });
 });
 
-var port = +process.argv[2] || 3000;
-var server = app.listen(port, function() {
+var appEnv = cfenv.getAppEnv();
+
+var server = app.listen(appEnv.port, function() {
 
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('baynet listening at http://%s:%s', host, port);
+  console.log('image-server listening at http://%s:%s', host, port);
 
 });
