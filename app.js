@@ -19,11 +19,6 @@ app.get('/:search_term', function (req, resp) {
 
 var appEnv = cfenv.getAppEnv();
 
-var server = app.listen(appEnv.port, function() {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('image-server listening at http://%s:%s', host, port);
-
+app.listen(appEnv.port, function() {
+  console.log("server starting on " + appEnv.url);
 });
